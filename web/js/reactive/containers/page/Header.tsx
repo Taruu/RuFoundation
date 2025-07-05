@@ -3,7 +3,6 @@ import * as Styled from './Header.styles'
 
 const Header: React.FC = () => {
   const [backLink, setBackLink] = useState('/');
-
   useEffect(() => {
     const lastPageBefore = sessionStorage.getItem('lastPageBefore');
 
