@@ -1,3 +1,4 @@
+import os
 from typing import Union, Sequence, Optional
 
 import auto_prefetch
@@ -26,6 +27,14 @@ class Site(SingletonModel):
 
     domain = models.TextField(verbose_name='Домен для статей', null=False)
     media_domain = models.TextField(verbose_name='Домен для файлов', null=False)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            super().save(*args, **kwargs)
+        old_site = Site.objects.get(pk=self.pk)
+        if old_site.icon and (old_site.icon != self.icon):  # Remove old icon form folder
+            os.remove(old_site.icon.path)
+        super().save(*args, **kwargs)
 
     def get_settings(self):
         return Settings.objects.filter(site=self).first() or Settings.get_default_settings()

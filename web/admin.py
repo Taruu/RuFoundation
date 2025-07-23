@@ -97,9 +97,10 @@ class SiteForm(forms.ModelForm):
             'title': forms.TextInput,
             'headline': forms.TextInput,
             'domain': forms.TextInput,
-            'media_domain': forms.TextInput
+            'media_domain': forms.TextInput,
+            'icon' : forms.ClearableFileInput()
         }
-        
+
         fields = '__all__'
 
 
@@ -107,7 +108,7 @@ class SiteForm(forms.ModelForm):
 class SiteAdmin(GuardedModelAdmin, SingletonModelAdmin):
     form = SiteForm
     inlines = [SettingsAdmin]
-    fields = ['slug', 'title', 'headline', 'domain', 'media_domain']
+    fields = ['slug', 'title', 'headline', 'domain', 'media_domain', 'icon']
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
@@ -230,7 +231,7 @@ class ActionsLogAdmin(admin.ModelAdmin):
         if obj.user == None:
             return f'{obj.stale_username} (удален)'
         return obj.user
-    
+
     @admin.display(description='Подробности')
     def info(self, obj):
         return logging.get_action_log_entry_description(obj)
@@ -240,7 +241,7 @@ class ActionsLogAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-    
+
     def has_change_permission(self, request, obj=None):
         return False
 
