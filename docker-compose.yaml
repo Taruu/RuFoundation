@@ -1,6 +1,11 @@
 version: "3.9"
 name: scpdev
 services:
+  memcached:
+    image: memcached:latest
+    command: memcached -m 1024
+    expose:
+      - "11211"
   web:
     restart: always
     build: .
