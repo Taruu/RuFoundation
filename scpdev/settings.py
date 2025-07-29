@@ -283,3 +283,10 @@ RANGED_CONTENT_SERVING = {
     "application/x-tar": 8388608,         # 8 MB
     "application/pdf": 1048576,           # 1 MB
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": os.environ.get('MEMCACHED_LOCATION', 'memcached:11211'),
+    }
+}
