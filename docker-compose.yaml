@@ -13,7 +13,7 @@ services:
       postgres:
         condition: service_healthy
     ports:
-      - 8000:8000
+      - 7777:7777
     volumes:
       - ./files:/app/files
       - ./archive:/app/archive:ro
