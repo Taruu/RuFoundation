@@ -2,14 +2,12 @@ import json
 from django.contrib.auth.models import AbstractUser as _UserType
 from django.utils.safestring import mark_safe
 
-from modules.listpages import render_date
 from renderer import single_pass_render
 from renderer.parser import RenderContext
 from renderer.utils import render_template_from_string, render_user_to_html
-from modules.forumthread import get_post_info, render_posts
+from modules.forumthread import render_posts
 
 from web import threadvars
-from web.models.forum import ForumThread
 from web.models.logs import ActionLogEntry
 from web.models.users import User
 

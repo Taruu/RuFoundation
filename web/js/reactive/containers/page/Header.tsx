@@ -11,10 +11,15 @@ const Header: React.FC = () => {
     }
   }, []);
 
+interface Props {
+  title: string
+}
+
+const Header: React.FC<Props> = ({ title }) => {
   return (
     <Styled.Container>
       <Styled.FixedWidthContainer>
-        <Styled.Heading>Профиль</Styled.Heading>
+        <Styled.Heading>{title}</Styled.Heading>
         <Styled.GoBack href={backLink}>
           <span className="fa fa-arrow-left"></span> Назад на сайт
         </Styled.GoBack>

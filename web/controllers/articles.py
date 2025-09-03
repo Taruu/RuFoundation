@@ -6,7 +6,6 @@ from django.db.models import QuerySet, Sum, Avg, Count, Max, TextField, Value, I
 from django.db.models.functions import Coalesce, Concat, Lower
 
 import renderer
-from renderer import RenderContext
 from web.events import EventBase
 from web.models.users import User
 from web.models.articles import *
@@ -509,7 +508,7 @@ def refresh_article_links(article_version: ArticleVersion):
     ExternalLink.objects.filter(link_from=article_name).delete()
     # parse current source
     already_added = []
-    rc = RenderContext(article=article_version.article, source_article=article_version.article, path_params={}, user=None)
+    rc = renderer.RenderContext(article=article_version.article, source_article=article_version.article, path_params={}, user=None)
     linked_pages, included_pages = renderer.single_pass_fetch_backlinks(article_version.source, rc)
     for linked_page in linked_pages:
         kt = '%s:include:%s' % (article_name.lower(), linked_page.lower())

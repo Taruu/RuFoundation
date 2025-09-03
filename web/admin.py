@@ -1,4 +1,3 @@
-from guardian.admin import GuardedModelAdmin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib import admin
@@ -14,7 +13,7 @@ from .models.logs import ActionLogEntry
 from .views.invite import InviteView
 from .views.bot import CreateBotView
 from .views.reset_votes import ResetUserVotesView
-from .controllers import articles, logging
+from .controllers import logging
 
 
 class TagsCategoryForm(forms.ModelForm):
@@ -78,7 +77,7 @@ class CategoryForm(forms.ModelForm):
 
 
 @admin.register(Category)
-class CategoryAdmin(GuardedModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     form = CategoryForm
     fieldsets = (
         (None, {"fields": ('name','is_indexed')}),
@@ -105,7 +104,7 @@ class SiteForm(forms.ModelForm):
 
 
 @admin.register(Site)
-class SiteAdmin(GuardedModelAdmin, SingletonModelAdmin):
+class SiteAdmin(SingletonModelAdmin):
     form = SiteForm
     inlines = [SettingsAdmin]
     fields = ['slug', 'title', 'headline', 'domain', 'media_domain', 'icon']
@@ -200,17 +199,17 @@ class VisualUserGroupForm(forms.ModelForm):
         model = VisualUserGroup
         widgets = {
             'name': forms.TextInput,
+            'badge': forms.TextInput,
+            'badge_bg': forms.TextInput(attrs={'type': 'color'}),
+            'badge_text_color': forms.TextInput(attrs={'type': 'color'}),
         }
         fields = '__all__'
 
 
 @admin.register(VisualUserGroup)
-class VisualUserGroupAdmin(GuardedModelAdmin):
+class VisualUserGroupAdmin(admin.ModelAdmin):
     form = VisualUserGroupForm
     search_fields = ['name']
-    fieldsets = (
-        (None, {"fields": ('name', 'index')}),
-    )
 
 
 class ActionsLogForm(forms.ModelForm):
