@@ -33,6 +33,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN python -m pip install -r requirements.txt
+RUN python -m pip install pymemcache
 RUN python -m pip install gunicorn
 
 COPY . .
