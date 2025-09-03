@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as Styled from './Header.styles'
 
-const Header: React.FC = () => {
+interface Props {
+  title: string
+}
+
+const Header: React.FC<Props> = ({ title }) => {
   const [backLink, setBackLink] = useState('/');
   useEffect(() => {
     const lastPageBefore = sessionStorage.getItem('lastPageBefore');
@@ -11,11 +15,6 @@ const Header: React.FC = () => {
     }
   }, []);
 
-interface Props {
-  title: string
-}
-
-const Header: React.FC<Props> = ({ title }) => {
   return (
     <Styled.Container>
       <Styled.FixedWidthContainer>
